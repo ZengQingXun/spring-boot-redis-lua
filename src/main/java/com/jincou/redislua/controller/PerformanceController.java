@@ -28,8 +28,9 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
  * @date 2019/7/26 下午6:34
  */
 @Slf4j
+@RequestMapping("/performance")
 @RestController
-public class PerformanceController {
+public class  PerformanceController {
 
     /**
      * 存储2000万条数据
@@ -81,7 +82,7 @@ public class PerformanceController {
      * 1、list 查看value是否存在 执行时间
      */
     @RequestMapping("/list")
-    public void existsList() {
+    public String existsList() {
         //计时开始
         stopwatch.start();
         for (String s : exist) {
@@ -91,15 +92,17 @@ public class PerformanceController {
         }
         //计时结束
         stopwatch.stop();
-        log.info("list集合测试，判断该元素集合中是否存在用时:{}", stopwatch.elapsed(MILLISECONDS));
+        String result = String.format("list集合测试，判断该元素集合中是否存在用时:%s", stopwatch.elapsed(MILLISECONDS));
+        log.info(result);
         stopwatch.reset();
+        return result;
     }
 
     /**
      * 2、查看map 判断k值是否存在 执行时间
      */
     @RequestMapping("/map")
-    public void existsMap() {
+    public String existsMap() {
         //计时开始
         stopwatch.start();
         for (String s : exist) {
@@ -110,16 +113,17 @@ public class PerformanceController {
         //计时结束
         stopwatch.stop();
         //获取时间差
-
-        log.info("map集合测试，判断该元素集合中是否存在用时:{}", stopwatch.elapsed(MILLISECONDS));
+        String result = String.format("map集合测试，判断该元素集合中是否存在用时:%s", stopwatch.elapsed(MILLISECONDS));
+        log.info(result);
         stopwatch.reset();
+        return result;
     }
 
     /**
      * 3、查看guava布隆过滤器 判断value值是否存在 执行时间
      */
     @RequestMapping("/bloom")
-    public void existsBloom() {
+    public String existsBloom() {
         //计时开始
         stopwatch.start();
         for (String s : exist) {
@@ -130,8 +134,10 @@ public class PerformanceController {
         //计时结束
         stopwatch.stop();
         //获取时间差
-        log.info("bloom集合测试，判断该元素集合中是否存在用时:{}", stopwatch.elapsed(MILLISECONDS));
+        String result = String.format("bloom集合测试，判断该元素集合中是否存在用时:%s", stopwatch.elapsed(MILLISECONDS));
+        log.info(result);
         stopwatch.reset();
+        return result;
     }
 
 
